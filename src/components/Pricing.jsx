@@ -125,7 +125,7 @@ export default function Pricing({ onBack }) {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '2rem',
+        padding: 'clamp(4rem, 10vh, 6rem) 1.5rem 4rem',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -155,11 +155,11 @@ export default function Pricing({ onBack }) {
         transition={{ delay: 0.1 }}
         onClick={onBack}
         style={{
-          position: 'absolute', top: '1.5rem', left: '2rem',
-          fontSize: '1.4rem', fontWeight: 800, letterSpacing: '0.15em',
+          position: 'absolute', top: '1.5rem', left: '1.5rem',
+          fontSize: '1.2rem', fontWeight: 800, letterSpacing: '0.15em',
           textTransform: 'uppercase', color: '#00ff88',
           textShadow: '0 0 20px rgba(0,255,136,0.4), 0 0 40px rgba(0,255,136,0.15)',
-          cursor: 'pointer', fontFamily: 'Inter, sans-serif', zIndex: 10,
+          cursor: 'pointer', fontFamily: 'Inter, sans-serif', zIndex: 100,
         }}
       >
         Web Ai
@@ -169,7 +169,7 @@ export default function Pricing({ onBack }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, marginBottom: '0.5rem' }}
+        style={{ fontSize: 'var(--fs-h2)', fontWeight: 700, marginBottom: '0.5rem', textAlign: 'center' }}
       >
         Fiyatlandırma
       </motion.h2>
@@ -177,7 +177,7 @@ export default function Pricing({ onBack }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        style={{ color: '#737373', marginBottom: '2rem', fontSize: '1rem' }}
+        style={{ color: '#737373', marginBottom: '2rem', fontSize: '0.9rem', textAlign: 'center' }}
       >
         İhtiyacınıza uygun planı seçin.
       </motion.p>
@@ -197,8 +197,8 @@ export default function Pricing({ onBack }) {
             key={label}
             onClick={() => setPeriod(i)}
             style={{
-              padding: '0.5rem 1.5rem', borderRadius: '9999px',
-              border: 'none', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600,
+              padding: '0.5rem 1.25rem', borderRadius: '9999px',
+              border: 'none', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600,
               transition: 'all 0.3s ease',
               backgroundColor: period === i ? '#fff' : 'transparent',
               color: period === i ? '#000' : '#737373',
@@ -210,7 +210,7 @@ export default function Pricing({ onBack }) {
       </motion.div>
 
       <div style={{
-        display: 'flex', flexDirection: 'column', gap: '0.75rem',
+        display: 'flex', flexDirection: 'column', gap: '1rem',
         width: '100%', maxWidth: '480px',
       }}>
         {plans.map((plan, i) => {
@@ -231,7 +231,7 @@ export default function Pricing({ onBack }) {
           });
 
           return (
-            <div key={plan.name}>
+            <div key={plan.name} style={{ width: '100%' }}>
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -249,10 +249,10 @@ export default function Pricing({ onBack }) {
               >
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                    <span style={{ fontSize: '1rem', fontWeight: 700 }}>{plan.name}</span>
+                    <span style={{ fontSize: '0.95rem', fontWeight: 700 }}>{plan.name}</span>
                     {plan.badge && (
                       <span style={{
-                        fontSize: '0.6rem', fontWeight: 700, padding: '0.15rem 0.5rem',
+                        fontSize: '0.55rem', fontWeight: 700, padding: '0.15rem 0.5rem',
                         borderRadius: '9999px', backgroundColor: 'rgba(250,204,21,0.15)',
                         color: '#facc15', textTransform: 'uppercase',
                       }}>
@@ -260,21 +260,21 @@ export default function Pricing({ onBack }) {
                       </span>
                     )}
                   </div>
-                  <span style={{ fontSize: '1.3rem', fontWeight: 800 }}>
+                  <span style={{ fontSize: '1.2rem', fontWeight: 800 }}>
                     ₺{(period === 0 ? plan.oncePrice : plan.monthlyPrice).toLocaleString('tr-TR')}
                   </span>
-                  <span style={{ fontSize: '0.75rem', color: '#737373', marginLeft: '0.25rem' }}>
+                  <span style={{ fontSize: '0.7rem', color: '#737373', marginLeft: '0.25rem' }}>
                     {period === 0 ? '' : '/ay'}
                   </span>
                 </div>
 
                 <div style={{
-                  width: '22px', height: '22px', borderRadius: '50%',
+                  width: '20px', height: '20px', borderRadius: '50%',
                   border: isActive ? '2px solid #fff' : '2px solid rgba(255,255,255,0.2)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   transition: 'all 0.3s ease',
                 }}>
-                  {isActive && <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#fff' }} />}
+                  {isActive && <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#fff' }} />}
                 </div>
               </motion.div>
 
@@ -297,11 +297,11 @@ export default function Pricing({ onBack }) {
                       const included = plan.included.includes(f) || (period === 1 && isMonthlyOnly);
                       
                       return (
-                        <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.35rem' }}>
+                        <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
                           {included ? (
-                            <Check size={13} style={{ color: '#00ff88', flexShrink: 0 }} />
+                            <Check size={12} style={{ color: '#00ff88', flexShrink: 0 }} />
                           ) : (
-                            <span style={{ color: '#ef4444', fontSize: '0.8rem', fontWeight: 700, width: '13px', textAlign: 'center', flexShrink: 0 }}>✕</span>
+                            <span style={{ color: '#ef4444', fontSize: '0.75rem', fontWeight: 700, width: '12px', textAlign: 'center', flexShrink: 0 }}>✕</span>
                           )}
                           <span style={{ 
                             fontSize: '0.75rem', 
@@ -309,7 +309,7 @@ export default function Pricing({ onBack }) {
                             fontWeight: isMonthlyOnly && included ? 600 : 400
                           }}>
                             {f}
-                            {isMonthlyOnly && period === 1 && <span style={{ fontSize: '0.65rem', marginLeft: '4px', opacity: 0.8 }}>(Aylık Bonus)</span>}
+                            {isMonthlyOnly && period === 1 && <span style={{ fontSize: '0.65rem', marginLeft: '4px', opacity: 0.8 }}>(Bonus)</span>}
                           </span>
                         </div>
                       );
@@ -333,7 +333,7 @@ export default function Pricing({ onBack }) {
             border: 'none',
             backgroundColor: '#fff',
             color: '#000',
-            fontSize: '0.95rem',
+            fontSize: '0.9rem',
             fontWeight: 700,
             cursor: 'pointer',
             marginTop: '0.5rem',

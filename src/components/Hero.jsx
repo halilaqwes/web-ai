@@ -29,7 +29,15 @@ export default function Hero({ onNavigate }) {
   };
 
   return (
-    <section className="hero" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden', backgroundColor: 'var(--background)' }}>
+    <section className="hero" style={{ 
+      minHeight: '100vh', 
+      display: 'flex', 
+      alignItems: 'center', 
+      position: 'relative', 
+      overflow: 'hidden', 
+      backgroundColor: 'var(--background)',
+      padding: '80px 0 40px' 
+    }}>
       {/* Spotlight Effect */}
       <div style={{
         position: 'absolute',
@@ -43,13 +51,20 @@ export default function Hero({ onNavigate }) {
       }}></div>
 
       <div className="container" style={{ position: 'relative', zIndex: 10, width: '100%' }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '2rem' }}>
+        <div className="hero-grid" style={{ 
+          display: 'flex', 
+          flexWrap: 'wrap', 
+          alignItems: 'center', 
+          justifyContent: 'space-between', 
+          gap: '2rem' 
+        }}>
           
           {/* Left Column: Text Content */}
           <motion.div 
             variants={containerVariants}
             initial="hidden"
             animate="visible"
+            className="hero-text"
             style={{ flex: '1 1 45%', minWidth: '300px', zIndex: 20 }}
           >
             <motion.div variants={itemVariants} style={{ marginBottom: '1.5rem' }}>
@@ -69,7 +84,12 @@ export default function Hero({ onNavigate }) {
               </span>
             </motion.div>
 
-            <motion.h1 variants={itemVariants} style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1.1, marginBottom: '1.5rem', color: '#fff' }}>
+            <motion.h1 variants={itemVariants} style={{ 
+              fontSize: 'var(--fs-hero)', 
+              lineHeight: 1.1, 
+              marginBottom: '1.5rem', 
+              color: '#fff' 
+            }}>
               Markanızın <br />
               <span style={{ 
                 background: 'linear-gradient(to right, #ffffff, #71717a)', 
@@ -81,7 +101,13 @@ export default function Hero({ onNavigate }) {
               </span>
             </motion.h1>
 
-            <motion.p variants={itemVariants} style={{ fontSize: '1.15rem', color: 'var(--muted)', marginBottom: '2.5rem', lineHeight: 1.7, maxWidth: '90%' }}>
+            <motion.p variants={itemVariants} style={{ 
+              fontSize: 'var(--fs-body)', 
+              color: 'var(--muted)', 
+              marginBottom: '2.5rem', 
+              lineHeight: 1.7, 
+              maxWidth: '90%' 
+            }}>
               Şirketinize özel, standartların ötesinde kurumsal web siteleri ve dijital deneyimler tasarlıyoruz. Sizi geleceğe taşıyacak 3D ve etkileşimli altyapılar.
             </motion.p>
 
@@ -96,7 +122,13 @@ export default function Hero({ onNavigate }) {
           </motion.div>
 
           {/* Right Column: Spline 3D Scene */}
-          <div style={{ flex: '1 1 45%', minWidth: '300px', height: '600px', position: 'relative', zIndex: 10 }}>
+          <div className="hero-visual" style={{ 
+            flex: '1 1 45%', 
+            minWidth: '300px', 
+            height: 'clamp(400px, 60vh, 600px)', 
+            position: 'relative', 
+            zIndex: 10 
+          }}>
              <motion.div 
                initial={{ opacity: 0, scale: 0.9 }}
                animate={{ opacity: 1, scale: 1 }}
@@ -109,6 +141,29 @@ export default function Hero({ onNavigate }) {
 
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 968px) {
+          .hero-grid {
+            flex-direction: column !important;
+            text-align: center;
+          }
+          .hero-text {
+            flex: 1 1 100% !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+          .hero-text p {
+            max-width: 100% !important;
+          }
+          .hero-visual {
+            flex: 1 1 100% !important;
+            width: 100%;
+            height: 400px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

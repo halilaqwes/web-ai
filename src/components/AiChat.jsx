@@ -131,8 +131,8 @@ export default function AiChat({ onBack }) {
         style={{
           position: 'fixed',
           top: '1.5rem',
-          left: '2rem',
-          fontSize: '1.4rem',
+          left: '1.5rem',
+          fontSize: '1.2rem',
           fontWeight: 800,
           letterSpacing: '0.15em',
           textTransform: 'uppercase',
@@ -141,7 +141,7 @@ export default function AiChat({ onBack }) {
             '0 0 20px rgba(0,255,136,0.4), 0 0 40px rgba(0,255,136,0.15)',
           cursor: 'pointer',
           fontFamily: 'Inter, sans-serif',
-          zIndex: 100,
+          zIndex: 1000,
         }}
       >
         Web Ai
@@ -156,7 +156,7 @@ export default function AiChat({ onBack }) {
           maxWidth: '720px',
           width: '100%',
           margin: '0 auto',
-          padding: '0 1.5rem',
+          padding: '0 1.25rem',
           position: 'relative',
           zIndex: 1,
         }}
@@ -168,9 +168,10 @@ export default function AiChat({ onBack }) {
             overflowY: 'auto',
             display: 'flex',
             flexDirection: 'column',
-            paddingTop: '5rem',
-            paddingBottom: '10rem',
+            paddingTop: '6rem',
+            paddingBottom: '12rem',
           }}
+          className="chat-scroll-area"
         >
           {/* Welcome area — only shown when no messages */}
           {messages.length === 0 && (
@@ -180,8 +181,8 @@ export default function AiChat({ onBack }) {
               transition={{ delay: 0.2, duration: 0.6 }}
               style={{
                 textAlign: 'center',
-                marginTop: '12vh',
-                marginBottom: '2.5rem',
+                marginTop: '8vh',
+                marginBottom: '2rem',
               }}
             >
               <div
@@ -189,21 +190,21 @@ export default function AiChat({ onBack }) {
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: '56px',
-                  height: '56px',
-                  borderRadius: '1rem',
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '0.8rem',
                   background: 'rgba(0,255,136,0.08)',
                   border: '1px solid rgba(0,255,136,0.15)',
-                  marginBottom: '1.5rem',
+                  marginBottom: '1.25rem',
                 }}
               >
-                <Sparkles size={26} color="#00ff88" />
+                <Sparkles size={22} color="#00ff88" />
               </div>
               <h1
                 style={{
-                  fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)',
+                  fontSize: 'var(--fs-h2)',
                   fontWeight: 700,
-                  marginBottom: '0.6rem',
+                  marginBottom: '0.5rem',
                   letterSpacing: '-0.02em',
                 }}
               >
@@ -220,9 +221,10 @@ export default function AiChat({ onBack }) {
               <p
                 style={{
                   color: '#737373',
-                  fontSize: '1rem',
-                  maxWidth: '400px',
+                  fontSize: '0.9rem',
+                  maxWidth: '320px',
                   margin: '0 auto',
+                  lineHeight: 1.5,
                 }}
               >
                 Size nasıl yardımcı olabilirim? Aşağıdaki sorulardan birini
@@ -241,6 +243,7 @@ export default function AiChat({ onBack }) {
               style={{
                 marginBottom: '0.75rem',
                 animationDelay: `${i * 0.05}s`,
+                fontSize: '0.85rem'
               }}
             >
               {msg.role === 'bot' && (
@@ -252,10 +255,10 @@ export default function AiChat({ onBack }) {
                     marginBottom: '0.4rem',
                   }}
                 >
-                  <Bot size={14} color="#00ff88" />
+                  <Bot size={12} color="#00ff88" />
                   <span
                     style={{
-                      fontSize: '0.7rem',
+                      fontSize: '0.65rem',
                       fontWeight: 600,
                       color: '#00ff88',
                       letterSpacing: '0.08em',
@@ -272,7 +275,7 @@ export default function AiChat({ onBack }) {
 
           {/* Typing indicator */}
           {isTyping && (
-            <div className="typing-indicator">
+            <div className="typing-indicator" style={{ marginBottom: '1rem' }}>
               <span></span>
               <span></span>
               <span></span>
@@ -291,10 +294,10 @@ export default function AiChat({ onBack }) {
             transform: 'translateX(-50%)',
             width: '100%',
             maxWidth: '720px',
-            padding: '0 1.5rem 1.5rem',
+            padding: '0 1.25rem 1.25rem',
             zIndex: 10,
             background:
-              'linear-gradient(to top, #09090b 60%, rgba(9,9,11,0.9) 80%, transparent 100%)',
+              'linear-gradient(to top, #09090b 80%, transparent 100%)',
           }}
         >
           {/* Suggestions */}
@@ -305,6 +308,7 @@ export default function AiChat({ onBack }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
                 transition={{ duration: 0.3 }}
+                className="ai-suggestions-grid"
                 style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(2, 1fr)',
@@ -321,7 +325,12 @@ export default function AiChat({ onBack }) {
                     className="ai-suggestion-pill"
                     onClick={() => handlePillClick(qa)}
                     disabled={isTyping}
-                    style={isTyping ? { opacity: 0.4, pointerEvents: 'none' } : {}}
+                    style={{
+                      padding: '0.7rem 0.9rem',
+                      fontSize: '0.8rem',
+                      opacity: isTyping ? 0.4 : 1,
+                      pointerEvents: isTyping ? 'none' : 'auto'
+                    }}
                   >
                     {qa.question}
                   </motion.button>
@@ -337,17 +346,18 @@ export default function AiChat({ onBack }) {
               rows={1}
               value={inputValue}
               readOnly
-              placeholder="Bir soru seçin veya yukarıdaki önerilerden birine tıklayın..."
+              placeholder="Bir soru seçin..."
               onKeyDown={handleKeyDown}
-              style={{ cursor: 'default' }}
+              style={{ cursor: 'default', fontSize: '0.85rem' }}
             />
             <button
               className="ai-chat-send-btn"
               onClick={handleSendFromInput}
               disabled={!inputValue.trim() || isTyping}
               aria-label="Gönder"
+              style={{ width: '32px', height: '32px' }}
             >
-              <ArrowUp size={18} strokeWidth={2.5} />
+              <ArrowUp size={16} strokeWidth={2.5} />
             </button>
           </div>
 
@@ -355,7 +365,7 @@ export default function AiChat({ onBack }) {
             style={{
               textAlign: 'center',
               color: '#525252',
-              fontSize: '0.7rem',
+              fontSize: '0.65rem',
               marginTop: '0.5rem',
             }}
           >
@@ -363,6 +373,20 @@ export default function AiChat({ onBack }) {
           </p>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .ai-suggestions-grid {
+            grid-template-columns: 1fr !important;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 4px;
+          }
+          .chat-scroll-area {
+            padding-bottom: 15rem !important;
+          }
+        }
+      `}</style>
     </motion.div>
   );
 }
